@@ -7,14 +7,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.RobotContainer;
-//import edu.wpi.first.wpilibj.Spark;
-
+import com.revrobotics.CANSparkMax;
 
 public class ShooterBase extends SubsystemBase {
 
-  public static WPI_TalonSRX shooterTalon = RobotContainer.ShooterTalon;
+  public static CANSparkMax LeftShooterSpark = RobotContainer.leftShooterSpark; 
+  public static CANSparkMax RightShooterSpark = RobotContainer.rightShooterSpark; 
+
   /** Creates a new ShooterBase. */
   public ShooterBase() {}
 
@@ -23,11 +23,13 @@ public class ShooterBase extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void ShooterStart(){
-    shooterTalon.set(-0.75);
+ public void ShootBallOn(){
+    LeftShooterSpark.set(-1);
+    RightShooterSpark.set(1);
   }
-  public void ShooterStop(){
-    shooterTalon.set(0);
+  public void ShootBallOff(){
+    LeftShooterSpark.set(0);
+    RightShooterSpark.set(0);
   }
 
 

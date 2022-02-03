@@ -17,11 +17,22 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*; 
 import edu.wpi.first.wpilibj.Joystick; 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import edu.wpi.first.wpilibj.Spark;
-//import edu.wpi.first.wpilibj.DoubleSolenoid;
-//import edu.wpi.first.wpilibj.Compressor;
+
+
+//imports the pheonix products 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+
+//Spark max imports (to import, install vendor library online and put this link in https://software-metadata.revrobotics.com/REVLib.json)
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+//import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;
+
+
 
 
 /**
@@ -44,11 +55,28 @@ public class RobotContainer {
   public static WPI_VictorSPX rightBackVictor = new WPI_VictorSPX(4);
 
  //declares system motors
- public static WPI_TalonSRX ShooterTalon = new WPI_TalonSRX(5);
+ public static WPI_TalonSRX intakeTalon = new WPI_TalonSRX(5);
+
+ //declares spark max
+ public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
+ public static CANSparkMax rightShooterSpark = new CANSparkMax(7, MotorType.kBrushless);
+
+ public static CANSparkMax leftClimberSpark = new CANSparkMax(8,MotorType.kBrushless);
+ public static CANSparkMax rightClimberSpark = new CANSparkMax(9,MotorType.kBrushless);
+
+//Compressors
+ public static Compressor robotCompressor;
+
+ //Solenoids
+ //public static DoubleSolenoid intakeSolenoid = new DoubleSolenoid();
+
+
 
  public static DriveBase driveBase; 
  public static DriveWithJoystick driveWithJoystick;
  public static ShooterBase shooterBase; 
+ public static IntakeBase intakeBase; 
+ public static ClimberBase climberBase; 
  
  //declares joystickis
  public static Joystick leftJoystick;
@@ -57,6 +85,8 @@ public class RobotContainer {
  
  //declare joystick button
  public static JoystickButton shootButton; 
+ public static JoystickButton intakeButton; 
+ public static JoystickButton climberButton; 
  
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
@@ -66,6 +96,8 @@ public class RobotContainer {
      logitech = new Joystick (2); 
  
      shootButton = new JoystickButton(logitech, 4);
+     intakeButton = new JoystickButton(logitech, 1);
+     climberButton = new JoystickButton(logitech, 3);
  
  
  
@@ -74,11 +106,19 @@ public class RobotContainer {
      CommandScheduler.getInstance().setDefaultCommand(driveBase, driveWithJoystick);
  
      shooterBase = new ShooterBase();
+     intakeBase = new IntakeBase();
+     climberBase = new ClimberBase(); 
  
  // decalres functions of buttons
  
      shootButton.whileHeld(new ShootBall());
      shootButton.whenReleased(new StopBall());
+
+     intakeButton.whileHeld(new IntakeStart());
+     intakeButton.whenReleased(new IntakeStop());
+
+     climberButton.whileHeld(new ClimberStart());
+     climberButton.whenReleased(new ClimberStop());
  
  
  
@@ -104,7 +144,6 @@ public class RobotContainer {
      return m_autoCommand;
    }
  
-   //returns joysticks
    public static Joystick getRightJoystick(){
      return rightJoystick;
    }

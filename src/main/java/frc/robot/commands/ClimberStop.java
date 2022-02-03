@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class StopBall extends CommandBase {
-  /** Creates a new StopBall. */
-  public StopBall() {
+public class ClimberStop extends CommandBase {
+  /** Creates a new ClimberStop. */
+  public ClimberStop() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,7 +20,7 @@ public class StopBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooterBase.ShootBallOff();
+    RobotContainer.climberBase.ClimberOff();
   }
 
   // Called once the command ends or is interrupted.
