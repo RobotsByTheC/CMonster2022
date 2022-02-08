@@ -28,9 +28,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-//import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Compressor;
+//Pneumatic imports
+/**import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;**/
 
 
 
@@ -65,7 +65,7 @@ public class RobotContainer {
  public static CANSparkMax rightClimberSpark = new CANSparkMax(9,MotorType.kBrushless);
 
 //Compressors
- public static Compressor robotCompressor;
+ //public static Compressor robotCompressor;
 
  //Solenoids
  //public static DoubleSolenoid intakeSolenoid = new DoubleSolenoid();
@@ -112,7 +112,8 @@ public class RobotContainer {
      climberBase = new ClimberBase(); 
  
  // decalres functions of buttons
- 
+    switchButton.whenPressed(new Inversion());
+    
      shootButton.whileHeld(new ShootBall());
      shootButton.whenReleased(new StopBall());
 
@@ -157,6 +158,10 @@ public class RobotContainer {
    public static Joystick getLogitech(){
      return logitech; 
    }
+
+   public static JoystickButton getSwitchButton(){
+    return switchButton; 
+  }
  
  }
 

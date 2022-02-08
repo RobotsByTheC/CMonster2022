@@ -22,6 +22,7 @@ public class DriveBase extends SubsystemBase {
  
   double leftMotorSpeed = 0;
   double rightMotorSpeed = 0; 
+  public boolean isInverted = false;
 
 
 
@@ -30,9 +31,18 @@ public class DriveBase extends SubsystemBase {
 
 
   public void JoystickInputs(Joystick rightJoystick, Joystick leftJoystick){
-    leftMotorSpeed = leftJoystick.getY()*-1;
-    rightMotorSpeed = rightJoystick.getY();
-
+ 
+    //SWITCHES DIRECTION OF MOTOR CONTROL - WHILE BUTTON NOT HELD, NORMAL, WHILE BUTTON HELD, REVERSED
+    if(!(isInverted))
+    {
+      leftMotorSpeed = leftJoystick.getY()*-1;//get values from joystick
+      rightMotorSpeed = rightJoystick.getY();
+    }
+    else
+    {
+      leftMotorSpeed = leftJoystick.getY();//get values from joystick
+      rightMotorSpeed = rightJoystick.getY() * -1;
+    }
     leftTalon.set(leftMotorSpeed);
     leftVictor.set(leftMotorSpeed);
     rightTalon.set(rightMotorSpeed);
