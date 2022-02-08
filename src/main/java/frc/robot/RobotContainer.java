@@ -84,6 +84,7 @@ public class RobotContainer {
  public static Joystick logitech;
  
  //declare joystick button
+ public static JoystickButton switchButton; 
  public static JoystickButton shootButton; 
  public static JoystickButton intakeButton; 
  public static JoystickButton climberButton; 
@@ -95,6 +96,7 @@ public class RobotContainer {
      rightJoystick = new Joystick (1);
      logitech = new Joystick (2); 
  
+     switchButton = new JoystickButton(leftJoystick,1);
      shootButton = new JoystickButton(logitech, 4);
      intakeButton = new JoystickButton(logitech, 1);
      climberButton = new JoystickButton(logitech, 3);
