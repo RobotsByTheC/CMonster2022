@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
 public class IntakeBase extends SubsystemBase {
+  public boolean intakeToggle = false;
 
   public static WPI_TalonSRX IntakeTalon = RobotContainer.intakeTalon;   
+  public static DoubleSolenoid IntakeSolenoid = RobotContainer.intakeSolenoid;
   /** Creates a new IntakeBase. */
 
   public IntakeBase() {}
@@ -28,5 +30,16 @@ public class IntakeBase extends SubsystemBase {
   }
   public void intakeStop(){
     IntakeTalon.set(0);
+  }
+
+  public void intakeSolenoidToggle(){
+    if (intakeToggle)
+    {
+    IntakeSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+    else
+    {
+    IntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
   }
 }

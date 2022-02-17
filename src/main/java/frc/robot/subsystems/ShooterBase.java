@@ -9,11 +9,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.Servo; 
 
 public class ShooterBase extends SubsystemBase {
 
   public static CANSparkMax LeftShooterSpark = RobotContainer.leftShooterSpark; 
   public static CANSparkMax RightShooterSpark = RobotContainer.rightShooterSpark; 
+
+  public static Servo LeftShooterServo = RobotContainer.leftShooterServo;
+  public static Servo RightShooterServo = RobotContainer.rightShooterServo;
 
   /** Creates a new ShooterBase. */
   public ShooterBase() {}
@@ -31,6 +35,8 @@ public class ShooterBase extends SubsystemBase {
     LeftShooterSpark.set(0);
     RightShooterSpark.set(0);
   }
+
+  
 
 
 }
