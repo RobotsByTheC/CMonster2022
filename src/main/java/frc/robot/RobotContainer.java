@@ -84,6 +84,7 @@ public class RobotContainer {
  public static ShooterBase shooterBase; 
  public static IntakeBase intakeBase; 
  public static ClimberBase climberBase; 
+ public static HoodBase hoodBase; 
  
  //declares joystickis
  public static Joystick leftJoystick;
@@ -96,6 +97,11 @@ public class RobotContainer {
  public static JoystickButton intakeButton; 
  public static JoystickButton climberButton; 
  public static JoystickButton intakeSolenoidButton;
+ public static JoystickButton hoodButtonUp; 
+ public static JoystickButton hoodButtonDown; 
+ public static JoystickButton retractHood; 
+ public static JoystickButton incrementUp; 
+ public static JoystickButton incrementDown; 
  
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
@@ -111,6 +117,12 @@ public class RobotContainer {
      intakeButton = new JoystickButton(logitech, 1);
      climberButton = new JoystickButton(logitech, 3);
      intakeSolenoidButton = new JoystickButton(logitech, 6);
+     hoodButtonUp = new JoystickButton(logitech,9);
+     hoodButtonDown = new JoystickButton(logitech,10);
+     retractHood = new JoystickButton(logitech, 8);
+     incrementUp = new JoystickButton(logitech, 5);
+     incrementDown = new JoystickButton(logitech, 6);
+
  
  
  
@@ -121,6 +133,7 @@ public class RobotContainer {
      shooterBase = new ShooterBase();
      intakeBase = new IntakeBase();
      climberBase = new ClimberBase(); 
+     hoodBase = new HoodBase();
  
  // decalres functions of buttons
      switchButton.whenPressed(new Inversion());
@@ -135,6 +148,12 @@ public class RobotContainer {
      climberButton.whenReleased(new ClimberStop());
      
      intakeSolenoidButton.whenPressed(new IntakeInOut());
+
+     hoodButtonUp.whenPressed(new HoodUp());
+     hoodButtonDown.whenPressed(new HoodDown());
+     retractHood.whenPressed(new RetractHood());
+     incrementUp.whileHeld(new IncrementHoodUp());
+     incrementDown.whileHeld(new IncrementHoodDown());
      
  
      // Configure the button bindings
