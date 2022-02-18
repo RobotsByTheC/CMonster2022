@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class HoodDown extends CommandBase {
-  /** Creates a new HoodDown. */
-  public HoodDown() {
+public class StartFeederUpper extends CommandBase {
+  /** Creates a new StartFeederUpper. */
+  public StartFeederUpper() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,7 +20,7 @@ public class HoodDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hoodBase.setExtension(101);
+    RobotContainer.indexerBase.startFeederUpper();
   }
 
   // Called once the command ends or is interrupted.

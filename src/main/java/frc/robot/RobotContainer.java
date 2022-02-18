@@ -6,17 +6,19 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.*; 
 import frc.robot.subsystems.*; 
+import edu.wpi.first.wpilibj.DigitalInput; 
+
+//imports joysticks and buttons
 import edu.wpi.first.wpilibj.Joystick; 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 
 //imports the pheonix products 
@@ -59,6 +61,8 @@ public class RobotContainer {
 
  //declares system motors
  public static WPI_TalonSRX intakeTalon = new WPI_TalonSRX(5);
+ public static WPI_TalonSRX feederLower = new WPI_TalonSRX(10);
+ public static WPI_TalonSRX feederUpper = new WPI_TalonSRX(11);
 
  //declares spark max
  public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
@@ -77,6 +81,11 @@ public class RobotContainer {
  public static Servo leftShooterServo = new Servo(1); 
  public static Servo rightShooterServo = new Servo(2); 
 
+ //creates digital inputs for beam breakers
+ DigitalInput bb1 = new DigitalInput(1);
+ DigitalInput bb2 = new DigitalInput(2);
+ DigitalInput bb3 = new DigitalInput(3);
+
  
  //Declares Subsystems 
  public static DriveBase driveBase; 
@@ -85,6 +94,7 @@ public class RobotContainer {
  public static IntakeBase intakeBase; 
  public static ClimberBase climberBase; 
  public static HoodBase hoodBase; 
+ public static IndexerBase indexerBase; 
  
  //declares joystickis
  public static Joystick leftJoystick;
@@ -94,14 +104,17 @@ public class RobotContainer {
  //declare joystick button
  public static JoystickButton switchButton; 
  public static JoystickButton shootButton; 
+ public static JoystickButton shootButton2;
+ //for firing, maybe temporary
+
  public static JoystickButton intakeButton; 
  public static JoystickButton climberButton; 
  public static JoystickButton intakeSolenoidButton;
  public static JoystickButton hoodButtonUp; 
  public static JoystickButton hoodButtonDown; 
  public static JoystickButton retractHood; 
- public static JoystickButton incrementUp; 
- public static JoystickButton incrementDown; 
+ public static POVButton incrementUp; 
+ public static POVButton incrementDown; 
  
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
@@ -114,14 +127,18 @@ public class RobotContainer {
      switchButton = new JoystickButton(leftJoystick, 1);
 
      shootButton = new JoystickButton(logitech, 4);
-     intakeButton = new JoystickButton(logitech, 1);
+     shootButton2 = new JoystickButton(logitech,2);
+
      climberButton = new JoystickButton(logitech, 3);
+
+     intakeButton = new JoystickButton(logitech, 1);
      intakeSolenoidButton = new JoystickButton(logitech, 6);
+
      hoodButtonUp = new JoystickButton(logitech,9);
      hoodButtonDown = new JoystickButton(logitech,10);
      retractHood = new JoystickButton(logitech, 8);
-     incrementUp = new JoystickButton(logitech, 5);
-     incrementDown = new JoystickButton(logitech, 6);
+     incrementUp = new POVButton(logitech, 0);//sets to angle 0 of POVButton
+     incrementDown = new POVButton(logitech, 180);//sets to angle 180 of POVButton
 
  
  
@@ -134,6 +151,7 @@ public class RobotContainer {
      intakeBase = new IntakeBase();
      climberBase = new ClimberBase(); 
      hoodBase = new HoodBase();
+     indexerBase = new IndexerBase();
  
  // decalres functions of buttons
      switchButton.whenPressed(new Inversion());
@@ -152,8 +170,14 @@ public class RobotContainer {
      hoodButtonUp.whenPressed(new HoodUp());
      hoodButtonDown.whenPressed(new HoodDown());
      retractHood.whenPressed(new RetractHood());
-     incrementUp.whileHeld(new IncrementHoodUp());
-     incrementDown.whileHeld(new IncrementHoodDown());
+     incrementUp.whenPressed(new IncrementHoodUp());
+     incrementDown.whenPressed(new IncrementHoodDown());
+
+   /*bb1.whenActive(new StartFeederLower());  
+   bb2.whenActive(new StopFeederLower());
+   bb2.whenActive(new StartFeederUpper()); 
+   bb3.whenActive(new StopFeederUpper()); */
+
      
  
      // Configure the button bindings
