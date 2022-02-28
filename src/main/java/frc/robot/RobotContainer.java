@@ -88,7 +88,7 @@ public class RobotContainer {
  DigitalInput bb2 = new DigitalInput(2);
  DigitalInput bb3 = new DigitalInput(3);
 
-
+ 
  
  //Declares Subsystems 
  public static DriveBase driveBase; 
@@ -147,7 +147,9 @@ public class RobotContainer {
      incrementUp = new POVButton(logitech, 0);//sets to angle 0 of POVButton
      incrementDown = new POVButton(logitech, 180);//sets to angle 180 of POVButton
 
-     //beamBreak1 = ;
+     beamBreak1 = new Trigger(() ->bb1.get());
+     beamBreak2 = new Trigger(() ->bb2.get());
+     beamBreak3 = new Trigger(() ->bb3.get());
  
  
      driveBase = new DriveBase();
@@ -181,10 +183,10 @@ public class RobotContainer {
      incrementDown.whenPressed(new IncrementHoodDown());
 
 
-   /*bb1.whenActive(new StartFeederLower());  
-   bb2.whenActive(new StopFeederLower());
-   bb2.whenActive(new StartFeederUpper()); 
-   bb3.whenActive(new StopFeederUpper()); */
+   beamBreak1.whenActive(new StartIndexLower());
+   beamBreak2.whenActive(new StopIndexLower());
+   beamBreak2.whenActive(new StartIndexUpper());
+   beamBreak3.whenActive(new StopIndexUpper());
 
      
  
