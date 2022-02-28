@@ -7,12 +7,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.DigitalInput; 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
 
 public class IndexerBase extends SubsystemBase {
 
-  public static WPI_TalonSRX FeederUpper = RobotContainer.feederUpper; 
-  public static WPI_TalonSRX FeederLower = RobotContainer.feederLower; 
+  public static CANSparkMax IndexLower = RobotContainer.indexLower; 
+  public static CANSparkMax IndexUpper = RobotContainer.indexUpper; 
+
   public boolean loaded = false;
   public boolean shooting = false;
   /** Creates a new IndexerBase. */
@@ -25,32 +26,32 @@ public class IndexerBase extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
-  public void startFeederLower()
+  public void startIndexLower()
   {
-    FeederLower.set(1);
+    IndexLower.set(1);
   }
 
-  public void stopFeederLower()
+  public void stopIndexLower()
   {
-    FeederLower.set(0);
+    IndexLower.set(0);
   }
 
   
-  public void startFeederUpper()
+  public void startIndexUpper()
   {
     if (!loaded && !shooting)
     {
-      FeederUpper.set(1);
+      IndexUpper.set(1);
       loaded = true;
     }
   }
 
 
-  public void stopFeederUpper()
+  public void stopIndexUpper()
   {
     if (!shooting)
     {
-      FeederUpper.set(0);
+      IndexUpper.set(0);
     }
   }
 

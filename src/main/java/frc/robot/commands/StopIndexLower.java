@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class StopFeederUpper extends CommandBase {
-  /** Creates a new StopFeederUpper. */
-  public StopFeederUpper() {
+public class StopIndexLower extends CommandBase {
+  /** Creates a new StopIndexLower. */
+  public StopIndexLower() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,7 +20,7 @@ public class StopFeederUpper extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.indexerBase.stopFeederUpper();
+    RobotContainer.indexerBase.stopIndexLower();
   }
 
   // Called once the command ends or is interrupted.

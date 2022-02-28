@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick; 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 //imports the pheonix products 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -32,6 +32,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 //Pneumatic imports
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -59,17 +60,18 @@ public class RobotContainer {
   public static WPI_TalonSRX rightFrontTalon = new WPI_TalonSRX(2); 
   public static WPI_VictorSPX rightBackVictor = new WPI_VictorSPX(4);
 
- //declares system motors
- public static WPI_TalonSRX intakeTalon = new WPI_TalonSRX(5);
- public static WPI_TalonSRX feederLower = new WPI_TalonSRX(10);
- public static WPI_TalonSRX feederUpper = new WPI_TalonSRX(11);
 
  //declares spark max
+ public static CANSparkMax intakeMotor = new CANSparkMax(5, MotorType.kBrushless);
+
  public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
  public static CANSparkMax rightShooterSpark = new CANSparkMax(7, MotorType.kBrushless);
 
  public static CANSparkMax leftClimberSpark = new CANSparkMax(8, MotorType.kBrushless);
  public static CANSparkMax rightClimberSpark = new CANSparkMax(9, MotorType.kBrushless);
+
+ public static CANSparkMax indexLower = new CANSparkMax(10, MotorType.kBrushless);
+ public static CANSparkMax indexUpper = new CANSparkMax(11, MotorType.kBrushless);
 
 //Compressors
  public static Compressor robotCompressor;
@@ -85,6 +87,7 @@ public class RobotContainer {
  DigitalInput bb1 = new DigitalInput(1);
  DigitalInput bb2 = new DigitalInput(2);
  DigitalInput bb3 = new DigitalInput(3);
+
 
  
  //Declares Subsystems 
@@ -115,6 +118,10 @@ public class RobotContainer {
  public static JoystickButton retractHood; 
  public static POVButton incrementUp; 
  public static POVButton incrementDown; 
+
+ public static Trigger beamBreak1; 
+ public static Trigger beamBreak2;
+ public static Trigger beamBreak3;
  
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
@@ -140,7 +147,7 @@ public class RobotContainer {
      incrementUp = new POVButton(logitech, 0);//sets to angle 0 of POVButton
      incrementDown = new POVButton(logitech, 180);//sets to angle 180 of POVButton
 
- 
+     //beamBreak1 = ;
  
  
      driveBase = new DriveBase();
@@ -172,6 +179,7 @@ public class RobotContainer {
      retractHood.whenPressed(new RetractHood());
      incrementUp.whenPressed(new IncrementHoodUp());
      incrementDown.whenPressed(new IncrementHoodDown());
+
 
    /*bb1.whenActive(new StartFeederLower());  
    bb2.whenActive(new StopFeederLower());
