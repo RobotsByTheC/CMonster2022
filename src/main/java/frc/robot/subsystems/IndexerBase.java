@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.DigitalInput; 
 import com.revrobotics.CANSparkMax;
 
 public class IndexerBase extends SubsystemBase {
@@ -14,8 +13,7 @@ public class IndexerBase extends SubsystemBase {
   public static CANSparkMax IndexLower = RobotContainer.indexLower; 
   public static CANSparkMax IndexUpper = RobotContainer.indexUpper; 
 
-  public boolean loaded = false;
-  public boolean shooting = false;
+
   /** Creates a new IndexerBase. */
   public IndexerBase() {}
 
@@ -39,20 +37,13 @@ public class IndexerBase extends SubsystemBase {
   
   public void startIndexUpper()
   {
-    if (!loaded && !shooting)
-    {
       IndexUpper.set(1);
-      loaded = true;
-    }
   }
 
 
   public void stopIndexUpper()
   {
-    if (!shooting)
-    {
       IndexUpper.set(0);
-    }
   }
 
 }

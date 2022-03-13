@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.*; 
 import frc.robot.subsystems.*; 
 import edu.wpi.first.wpilibj.DigitalInput; 
+import edu.wpi.first.cscore.UsbCamera;
+
 
 //imports joysticks and buttons
 import edu.wpi.first.wpilibj.Joystick; 
@@ -83,11 +85,6 @@ public class RobotContainer {
  public static Servo leftShooterServo = new Servo(1); 
  public static Servo rightShooterServo = new Servo(2); 
 
- //creates digital inputs for beam breakers
- DigitalInput bb1 = new DigitalInput(1);
- DigitalInput bb2 = new DigitalInput(2);
- DigitalInput bb3 = new DigitalInput(3);
-
  
  
  //Declares Subsystems 
@@ -107,8 +104,6 @@ public class RobotContainer {
  //declare joystick button
  public static JoystickButton switchButton; 
  public static JoystickButton shootButton; 
- public static JoystickButton shootButton2;
- //for firing, maybe temporary
 
  public static JoystickButton intakeButton; 
  public static JoystickButton climberButton; 
@@ -118,10 +113,9 @@ public class RobotContainer {
  public static JoystickButton retractHood; 
  public static POVButton incrementUp; 
  public static POVButton incrementDown; 
+ public static JoystickButton indexButton1;
+ public static JoystickButton indexButton2;
 
- public static Trigger beamBreak1; 
- public static Trigger beamBreak2;
- public static Trigger beamBreak3;
  
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
@@ -134,24 +128,22 @@ public class RobotContainer {
      switchButton = new JoystickButton(leftJoystick, 1);
 
      shootButton = new JoystickButton(logitech, 4);
-     shootButton2 = new JoystickButton(logitech,2);
 
-     climberButton = new JoystickButton(logitech, 3);
+     climberButton = new JoystickButton(logitech, 8);
 
-     intakeButton = new JoystickButton(logitech, 1);
-     intakeSolenoidButton = new JoystickButton(logitech, 6);
+     intakeButton = new JoystickButton(logitech, 3);
+     intakeSolenoidButton = new JoystickButton(logitech, 1);
 
      hoodButtonUp = new JoystickButton(logitech,9);
      hoodButtonDown = new JoystickButton(logitech,10);
-     retractHood = new JoystickButton(logitech, 8);
+     retractHood = new JoystickButton(logitech, 7);
      incrementUp = new POVButton(logitech, 0);//sets to angle 0 of POVButton
      incrementDown = new POVButton(logitech, 180);//sets to angle 180 of POVButton
 
-     beamBreak1 = new Trigger(() ->bb1.get());
-     beamBreak2 = new Trigger(() ->bb2.get());
-     beamBreak3 = new Trigger(() ->bb3.get());
- 
- 
+     indexButton1 = new JoystickButton(logitech, 5);
+     indexButton2 = new JoystickButton(logitech, 6);
+     
+
      driveBase = new DriveBase();
      driveWithJoystick = new DriveWithJoystick();
      CommandScheduler.getInstance().setDefaultCommand(driveBase, driveWithJoystick);
@@ -183,10 +175,10 @@ public class RobotContainer {
      incrementDown.whenPressed(new IncrementHoodDown());
 
 
-   beamBreak1.whenActive(new StartIndexLower());
-   beamBreak2.whenActive(new StopIndexLower());
-   beamBreak2.whenActive(new StartIndexUpper());
-   beamBreak3.whenActive(new StopIndexUpper());
+   indexButton1.whenPressed(new StartIndexLower());
+   indexButton1.whenReleased(new StopIndexLower());
+   indexButton2.whenPressed(new StartIndexUpper());
+   indexButton2.whenReleased(new StopIndexUpper());
 
      
  
