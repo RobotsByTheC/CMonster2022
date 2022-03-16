@@ -62,10 +62,11 @@ public class RobotContainer {
   public static WPI_TalonSRX rightFrontTalon = new WPI_TalonSRX(2); 
   public static WPI_VictorSPX rightBackVictor = new WPI_VictorSPX(4);
 
+//declares talons
+public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
+
 
  //declares spark max
- public static CANSparkMax intakeMotor = new CANSparkMax(5, MotorType.kBrushless);
-
  public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
  public static CANSparkMax rightShooterSpark = new CANSparkMax(7, MotorType.kBrushless);
 

@@ -7,14 +7,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.RobotContainer; 
-import com.revrobotics.CANSparkMax;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
 public class IntakeBase extends SubsystemBase {
   public boolean intakeToggle = false;
 
-  public static CANSparkMax IntakeMotor = RobotContainer.intakeMotor;   
+  public static WPI_TalonSRX IntakeMotor = RobotContainer.intakeMotor;   
   public static DoubleSolenoid IntakeSolenoid = RobotContainer.intakeSolenoid;
   /** Creates a new IntakeBase. */
 
