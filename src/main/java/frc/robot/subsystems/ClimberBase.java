@@ -14,14 +14,18 @@ public class ClimberBase extends SubsystemBase {
 
   /** Creates a new ClimberBase. */
   public ClimberBase() {}
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
   public void ClimberOn(){
-    LeftClimberSpark.set(-1);
-    RightClimberSpark.set(1);
+    LeftClimberSpark.set(.2);
+    RightClimberSpark.set(-.2);
+  }
+  public void ClimberDown(){
+    LeftClimberSpark.set(-.2);
+    RightClimberSpark.set(.2);
   }
   public void ClimberOff(){
     LeftClimberSpark.set(0);

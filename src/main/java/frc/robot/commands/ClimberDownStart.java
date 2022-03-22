@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ClimberStart extends CommandBase {
+public class ClimberDownStart extends CommandBase {
   /** Creates a new ClimberStart. */
-  public ClimberStart() {
+  public ClimberDownStart() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,7 +20,7 @@ public class ClimberStart extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.climberBase.ClimberOn();
+    RobotContainer.climberBase.ClimberDown();
   }
 
   // Called once the command ends or is interrupted.

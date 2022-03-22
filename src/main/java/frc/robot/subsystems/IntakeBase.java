@@ -26,7 +26,7 @@ public class IntakeBase extends SubsystemBase {
   }
 
   public void intakeStart(){
-    IntakeMotor.set(-0.75);
+    IntakeMotor.set(0.5);
   }
   public void intakeStop(){
     IntakeMotor.set(0);
@@ -41,5 +41,26 @@ public class IntakeBase extends SubsystemBase {
     {
     IntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
+  }
+
+  public void intakeToggleAuto(){
+    if (intakeToggle)
+    {
+    IntakeSolenoid.set(DoubleSolenoid.Value.kForward);
+    intakeToggle = !intakeToggle;
+    }
+    else
+    {
+    IntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+    intakeToggle = !intakeToggle;
+    }
+  }
+  public void intakeStartAuto()
+  {
+    IntakeMotor.set(1);
+  }
+  public void intakeStopAuto()
+  {
+    IntakeMotor.set(0);
   }
 }

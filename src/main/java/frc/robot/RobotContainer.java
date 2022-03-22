@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.autocommands.basicAuto;
 import frc.robot.commands.*; 
 import frc.robot.subsystems.*; 
 import edu.wpi.first.wpilibj.DigitalInput; 
@@ -22,6 +21,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj.Timer;
+
 
 //imports the pheonix products 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -53,7 +54,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private Command m_autoCommand;
 
 
   //declares driving motors
@@ -67,7 +68,7 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
 
 
  //declares spark max
- public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
+ //public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
  public static CANSparkMax rightShooterSpark = new CANSparkMax(7, MotorType.kBrushless);
 
  public static CANSparkMax leftClimberSpark = new CANSparkMax(8, MotorType.kBrushless);
@@ -80,7 +81,7 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
  public static Compressor robotCompressor;
 
  //Solenoids
- public static DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0,1);
+ public static DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,5,7);
 
  //servos
  public static Servo leftShooterServo = new Servo(1); 
@@ -96,6 +97,10 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
  public static ClimberBase climberBase; 
  public static HoodBase hoodBase; 
  public static IndexerBase indexerBase; 
+
+ 
+ //declares timer
+ public static Timer moveTimer;
  
  //declares joystickis
  public static Joystick leftJoystick;
@@ -108,6 +113,7 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
 
  public static JoystickButton intakeButton; 
  public static JoystickButton climberButton; 
+ public static JoystickButton climberDownButton;
  public static JoystickButton intakeSolenoidButton;
  public static JoystickButton hoodButtonUp; 
  public static JoystickButton hoodButtonDown; 
@@ -120,20 +126,26 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
  
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
- 
+
+    //m_autoCommand = new basicAuto();
+    moveTimer = new Timer();
+    moveTimer.start();
+
+    
     //Creates Joysticks and Joystick Buttons
      leftJoystick = new Joystick (0);
      rightJoystick = new Joystick (1);
      logitech = new Joystick (2); 
  
-     switchButton = new JoystickButton(leftJoystick, 1);
+     switchButton = new JoystickButton(leftJoystick, 2);
 
      shootButton = new JoystickButton(logitech, 4);
 
-     climberButton = new JoystickButton(logitech, 8);
+     //climberButton = new JoystickButton(logitech,3);
+     //climberDownButton = new JoystickButton(logitech, 2);
 
-     intakeButton = new JoystickButton(logitech, 3);
-     intakeSolenoidButton = new JoystickButton(logitech, 1);
+     intakeButton = new JoystickButton(logitech, 1);
+     intakeSolenoidButton = new JoystickButton(logitech, 8);
 
      hoodButtonUp = new JoystickButton(logitech,9);
      hoodButtonDown = new JoystickButton(logitech,10);
@@ -162,11 +174,15 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
      shootButton.whenReleased(new StopBall());
      
      intakeButton.whileHeld(new IntakeStart());
+     intakeButton.whileHeld(new StartIndexLower());
      intakeButton.whenReleased(new IntakeStop());
-     
+     intakeButton.whenReleased(new StopIndexLower());
+     /*
      climberButton.whileHeld(new ClimberStart());
      climberButton.whenReleased(new ClimberStop());
-     
+     climberDownButton.whenHeld(new ClimberDownStart());
+     climberDownButton.whenReleased(new ClimberStop());
+     */
      intakeSolenoidButton.whenPressed(new IntakeInOut());
 
      hoodButtonUp.whenPressed(new HoodUp());
@@ -176,8 +192,8 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
      incrementDown.whenPressed(new IncrementHoodDown());
 
 
-   indexButton1.whenPressed(new StartIndexLower());
-   indexButton1.whenReleased(new StopIndexLower());
+   indexButton1.whenPressed(new StartIndexUpperDown());
+   indexButton1.whenReleased(new StopIndexUpper());
    indexButton2.whenPressed(new StartIndexUpper());
    indexButton2.whenReleased(new StopIndexUpper());
 
@@ -200,10 +216,6 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
     *
     * @return the command to run in autonomous
     */
-   public Command getAutonomousCommand() {
-     // An ExampleCommand will run in autonomous
-     return m_autoCommand;
-   }
 
 
 
@@ -223,6 +235,12 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
    public static JoystickButton getSwitchButton(){
     return switchButton; 
   }
+
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return m_autoCommand;
+  }
+
  
  }
 

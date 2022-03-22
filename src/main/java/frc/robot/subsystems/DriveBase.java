@@ -35,13 +35,13 @@ public class DriveBase extends SubsystemBase {
     //SWITCHES DIRECTION OF MOTOR CONTROL - WHILE BUTTON NOT HELD, NORMAL, WHILE BUTTON HELD, REVERSED
     if(!(isInverted))
     {
-      leftMotorSpeed = leftJoystick.getY()*-1;//get values from joystick
-      rightMotorSpeed = rightJoystick.getY();
+      leftMotorSpeed = leftJoystick.getY();//get values from joystick
+      rightMotorSpeed = rightJoystick.getY()*-1;
     }
     else
     {
-      leftMotorSpeed = leftJoystick.getY();//get values from joystick
-      rightMotorSpeed = rightJoystick.getY() * -1;
+      leftMotorSpeed = leftJoystick.getY()*-1;//get values from joystick
+      rightMotorSpeed = rightJoystick.getY();
     }
     leftTalon.set(leftMotorSpeed);
     leftVictor.set(leftMotorSpeed);
@@ -50,7 +50,54 @@ public class DriveBase extends SubsystemBase {
 
   }
 
+  public void driveAuto(double input){
+    if (input < 0)
+    //go BACKWARDS
+    {
+       leftTalon.set(-0.2);
+       rightTalon.set(0.2);
+       leftVictor.set(-0.2);
+       rightVictor.set(0.2);
+    }
+    else
+    //go FORWARDS
+    {
+       leftTalon.set(-0.2);
+       rightTalon.set(0.2);
+       leftVictor.set(-0.2);
+       rightVictor.set(0.2);
+    }
+    }
+  public void driveStopAuto()
+  {
+    leftTalon.set(0);
+    rightTalon.set(0);
+    leftVictor.set(0);
+    rightVictor.set(0);
+  }
 
+  public void driveTurnAuto(double input)
+  {
+    if(input < 0)
+    //turn LEFT
+    {
+      leftTalon.set(0.5);
+      rightTalon.set(0.5);
+      leftVictor.set(0.5);
+      rightVictor.set(0.5);
+  
+    }
+    else
+    //turn RIGHT
+    {
+      leftTalon.set(-0.5);
+      rightTalon.set(-0.5);
+      leftVictor.set(-0.5);
+      rightVictor.set(-0.5);
+
+    }
+  }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

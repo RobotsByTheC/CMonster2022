@@ -26,7 +26,7 @@ public class IndexerBase extends SubsystemBase {
   
   public void startIndexLower()
   {
-    IndexLower.set(1);
+    IndexLower.set(-1);
   }
 
   public void stopIndexLower()
@@ -39,6 +39,10 @@ public class IndexerBase extends SubsystemBase {
   {
       IndexUpper.set(1);
   }
+  public void startIndexUpperDown()
+  {
+    IndexUpper.set(-1);
+  }
 
 
   public void stopIndexUpper()
@@ -46,4 +50,22 @@ public class IndexerBase extends SubsystemBase {
       IndexUpper.set(0);
   }
 
+  public void AutoStartIndexer()
+  {
+    IndexUpper.set(1);
+    IndexLower.set(-1);
+  }
+  public void AutoStopIndexer()
+  {
+    IndexUpper.set(0);
+    IndexLower.set(0);
+  }
+  public void AutoStartLowerIndexer()
+  {
+    IndexLower.set(-1);
+  }
+  public void AutoStopLowerIndexer()
+  {
+    IndexLower.set(0);
+  }
 }

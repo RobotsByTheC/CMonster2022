@@ -7,11 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.*;
+import frc.robot.autocommands.TimedMove;
+import frc.robot.autocommands.basicAuto;
+import frc.robot.autocommands.shootOneAuto;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.Timer;
 
 
 /**
@@ -22,8 +26,11 @@ import frc.robot.commands.*;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  public Timer mainTimer;
   private RobotContainer m_robotContainer;
+
+  //public static SendableChooser<Command> autoChooser;
+
 
 
 
@@ -37,9 +44,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
     //start vision stream
    CameraServer.startAutomaticCapture();
+
+   //auto chooser
+  //  autoChooser = new SendableChooser<Command>();
+  //  autoChooser.setDefaultOption("Move Forward", new TimedMoveForward(3));
+  //  autoChooser.addOption("Basic Auto", new basicAuto());
 
   }
 
@@ -69,7 +80,17 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    /*
+    CHANGE BELOW FOR AUTO
+    CURRENT OPTIONS:
+      basicAuto() - drives forward, usable at any position
+      shootOneAuto() - shoots once and drives forward, usable at any position
+      shootTwoAuto() - collects a ball, returns to start, shoots twice at high goal, not usable at any position, needs testing
+
+
+    */
+    m_autonomousCommand = new basicAuto();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -100,6 +121,7 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+
   }
 
   /** This function is called periodically during test mode. */

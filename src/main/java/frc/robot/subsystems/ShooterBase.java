@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMax;
 
 public class ShooterBase extends SubsystemBase {
 
-  public static CANSparkMax LeftShooterSpark = RobotContainer.leftShooterSpark; 
+  //public static CANSparkMax LeftShooterSpark = RobotContainer.leftShooterSpark; 
   public static CANSparkMax RightShooterSpark = RobotContainer.rightShooterSpark; 
 
 
@@ -25,11 +25,19 @@ public class ShooterBase extends SubsystemBase {
   }
 
  public void ShootBallOn(){
-    LeftShooterSpark.set(-1);
-    RightShooterSpark.set(1);
+   // LeftShooterSpark.set(0.7);
+    RightShooterSpark.set(0.7);
   }
   public void ShootBallOff(){
-    LeftShooterSpark.set(0);
+   // LeftShooterSpark.set(0);
+    RightShooterSpark.set(0);
+  }
+  public void AutoShootBallOn(){
+ // LeftShooterSpark.set(0.7);
+  RightShooterSpark.set(0.7);
+  }
+  public void AutoShootBallOff(){
+   // LeftShooterSpark.set(0);
     RightShooterSpark.set(0);
   }
 
