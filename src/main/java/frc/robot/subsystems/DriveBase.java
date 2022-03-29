@@ -40,13 +40,26 @@ public class DriveBase extends SubsystemBase {
     }
     else
     {
-      leftMotorSpeed = leftJoystick.getY()*-1;//get values from joystick
-      rightMotorSpeed = rightJoystick.getY();
+      leftMotorSpeed = rightJoystick.getY();//get values from joystick
+      rightMotorSpeed = leftJoystick.getY()*-1;
     }
-    leftTalon.set(leftMotorSpeed);
+    /**leftTalon.set(leftMotorSpeed);
     leftVictor.set(leftMotorSpeed);
     rightTalon.set(rightMotorSpeed);
-    rightVictor.set(rightMotorSpeed);
+    rightVictor.set(rightMotorSpeed);**/
+
+    leftTalon.set(leftMotorSpeed);
+    leftVictor.set(leftMotorSpeed);
+    rightTalon.set(rightMotorSpeed*0.95);
+    rightVictor.set(rightMotorSpeed*0.95);
+
+  }
+
+  public void Input(double input){
+    leftTalon.set(input);
+    leftVictor.set(input);
+    rightTalon.set(input);
+    rightVictor.set(input);
 
   }
 
@@ -54,18 +67,18 @@ public class DriveBase extends SubsystemBase {
     if (input < 0)
     //go BACKWARDS
     {
-       leftTalon.set(-0.2);
-       rightTalon.set(0.2);
-       leftVictor.set(-0.2);
-       rightVictor.set(0.2);
+       leftTalon.set(-.2);
+       rightTalon.set(.2);
+       leftVictor.set(-.2);
+       rightVictor.set(.2);
     }
     else
     //go FORWARDS
     {
-       leftTalon.set(-0.2);
-       rightTalon.set(0.2);
-       leftVictor.set(-0.2);
-       rightVictor.set(0.2);
+       leftTalon.set(-.5);
+       leftVictor.set(-.5);
+       rightTalon.set(.5);
+       rightVictor.set(.5);
     }
     }
   public void driveStopAuto()

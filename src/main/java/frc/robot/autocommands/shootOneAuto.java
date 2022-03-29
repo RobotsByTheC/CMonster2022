@@ -5,6 +5,7 @@
 package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.IntakeInOut;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,6 +18,7 @@ public class shootOneAuto extends SequentialCommandGroup {
     
 
     //more commands will be added to sequence
-      addCommands(new TimedShooter(4), new TimedMove(3));
+      addCommands(new TimedShooter(4));
+     // addCommands(new TimedShooter(4), new Run ().withTimeout(2.0));
   }
 }

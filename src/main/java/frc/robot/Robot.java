@@ -11,6 +11,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.*;
+import frc.robot.subsystems.DriveBase;
+import frc.robot.autocommands.Run;
 import frc.robot.autocommands.TimedMove;
 import frc.robot.autocommands.basicAuto;
 import frc.robot.autocommands.shootOneAuto;
@@ -85,12 +87,12 @@ public class Robot extends TimedRobot {
     CHANGE BELOW FOR AUTO
     CURRENT OPTIONS:
       basicAuto() - drives forward, usable at any position
-      shootOneAuto() - shoots once and drives forward, usable at any position
+      shootOneAuto() - shoots once and pushes out intake, usable at any position
       shootTwoAuto() - collects a ball, returns to start, shoots twice at high goal, not usable at any position, needs testing
 
-
     */
-    m_autonomousCommand = new basicAuto();
+    // m_autonomousCommand = new shootOneAuto();
+    m_autonomousCommand = new shootOneAuto();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

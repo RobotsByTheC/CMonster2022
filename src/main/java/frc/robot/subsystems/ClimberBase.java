@@ -20,12 +20,12 @@ public class ClimberBase extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void ClimberOn(){
-    LeftClimberSpark.set(.2);
-    RightClimberSpark.set(-.2);
+    LeftClimberSpark.set(.3);
+    RightClimberSpark.set(.3);
   }
   public void ClimberDown(){
-    LeftClimberSpark.set(-.2);
-    RightClimberSpark.set(.2);
+    LeftClimberSpark.set(-.3);
+    RightClimberSpark.set(-.3);
   }
   public void ClimberOff(){
     LeftClimberSpark.set(0);

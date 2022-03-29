@@ -68,8 +68,8 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
 
 
  //declares spark max
- //public static CANSparkMax leftShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
- public static CANSparkMax rightShooterSpark = new CANSparkMax(7, MotorType.kBrushless);
+ //public static CANSparkMax leftShooterSpark = new CANSparkMax(7, MotorType.kBrushless);
+ public static CANSparkMax rightShooterSpark = new CANSparkMax(6, MotorType.kBrushless);
 
  public static CANSparkMax leftClimberSpark = new CANSparkMax(8, MotorType.kBrushless);
  public static CANSparkMax rightClimberSpark = new CANSparkMax(9, MotorType.kBrushless);
@@ -112,6 +112,7 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
  public static JoystickButton shootButton; 
 
  public static JoystickButton intakeButton; 
+ public static JoystickButton intakeRevButton;
  public static JoystickButton climberButton; 
  public static JoystickButton climberDownButton;
  public static JoystickButton intakeSolenoidButton;
@@ -123,7 +124,6 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
  public static JoystickButton indexButton1;
  public static JoystickButton indexButton2;
 
- 
    /** The container for the robot. Contains subsystems, OI devices, and commands. */
    public RobotContainer() {
 
@@ -133,19 +133,20 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
 
     
     //Creates Joysticks and Joystick Buttons
-     leftJoystick = new Joystick (0);
-     rightJoystick = new Joystick (1);
+     leftJoystick = new Joystick (1);
+     rightJoystick = new Joystick (0);
      logitech = new Joystick (2); 
  
      switchButton = new JoystickButton(leftJoystick, 2);
 
      shootButton = new JoystickButton(logitech, 4);
 
-     //climberButton = new JoystickButton(logitech,3);
-     //climberDownButton = new JoystickButton(logitech, 2);
+     climberButton = new JoystickButton(logitech,2);
+     climberDownButton = new JoystickButton(logitech, 3);
 
      intakeButton = new JoystickButton(logitech, 1);
      intakeSolenoidButton = new JoystickButton(logitech, 8);
+     intakeRevButton = new JoystickButton(leftJoystick, 3);
 
      hoodButtonUp = new JoystickButton(logitech,9);
      hoodButtonDown = new JoystickButton(logitech,10);
@@ -170,19 +171,23 @@ public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(5);
  // decalres functions of buttons
      switchButton.whenPressed(new Inversion());
      
-     shootButton.whileHeld(new ShootBall());
-     shootButton.whenReleased(new StopBall());
+
+     //SWAP SHOOTING SEQUENCE shootBallOn -> ShootSequence
+     shootButton.whileHeld(new ShootSequence());
+     shootButton.whenReleased(new ShootSequenceStop());
      
      intakeButton.whileHeld(new IntakeStart());
      intakeButton.whileHeld(new StartIndexLower());
      intakeButton.whenReleased(new IntakeStop());
      intakeButton.whenReleased(new StopIndexLower());
-     /*
+     intakeRevButton.whileHeld(new IntakeReverse());
+     intakeRevButton.whenReleased(new IntakeStop());
+     
      climberButton.whileHeld(new ClimberStart());
      climberButton.whenReleased(new ClimberStop());
      climberDownButton.whenHeld(new ClimberDownStart());
      climberDownButton.whenReleased(new ClimberStop());
-     */
+     
      intakeSolenoidButton.whenPressed(new IntakeInOut());
 
      hoodButtonUp.whenPressed(new HoodUp());

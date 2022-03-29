@@ -25,16 +25,16 @@ public class ShooterBase extends SubsystemBase {
   }
 
  public void ShootBallOn(){
-   // LeftShooterSpark.set(0.7);
-    RightShooterSpark.set(0.7);
+  // LeftShooterSpark.set(0.7);
+    RightShooterSpark.set(-0.65);
   }
   public void ShootBallOff(){
-   // LeftShooterSpark.set(0);
+  // LeftShooterSpark.set(0);
     RightShooterSpark.set(0);
   }
   public void AutoShootBallOn(){
  // LeftShooterSpark.set(0.7);
-  RightShooterSpark.set(0.7);
+  RightShooterSpark.set(0.-65);
   }
   public void AutoShootBallOff(){
    // LeftShooterSpark.set(0);

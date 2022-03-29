@@ -35,17 +35,20 @@ public class TimedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooterBase.AutoShootBallOn();
+    RobotContainer.shooterBase.ShootBallOn();
     if (timer.get() >= startTime+1)
     {
-      RobotContainer.indexerBase.AutoStartIndexer();
+      RobotContainer.indexerBase.startIndexLower();
+      RobotContainer.indexerBase.startIndexUpper();
     }
+
+
    }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooterBase.AutoShootBallOff();
+    RobotContainer.shooterBase.ShootBallOff();
     RobotContainer.indexerBase.AutoStopIndexer();
   }
 

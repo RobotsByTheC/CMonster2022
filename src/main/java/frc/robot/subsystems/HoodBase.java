@@ -33,7 +33,7 @@ public class HoodBase extends SubsystemBase {
       RightShooterServo.setAngle(0);
       currentExtenstion = 0; 
     }
-    else if (extension > 100 && extension < 180)
+    else if (extension > 1 && extension < 180)
     {
       LeftShooterServo.setAngle(extension);
       RightShooterServo.setAngle(extension);

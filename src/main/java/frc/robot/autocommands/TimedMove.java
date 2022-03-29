@@ -5,7 +5,6 @@
 package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotContainer;
 import java.lang.Math;
@@ -29,7 +28,6 @@ public class TimedMove extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
     timer = RobotContainer.moveTimer;
     startTime = timer.get();
     endTime = startTime + timeToRun; 

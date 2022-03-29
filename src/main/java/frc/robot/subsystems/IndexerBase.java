@@ -26,7 +26,7 @@ public class IndexerBase extends SubsystemBase {
   
   public void startIndexLower()
   {
-    IndexLower.set(-1);
+    IndexLower.set(-.5);
   }
 
   public void stopIndexLower()

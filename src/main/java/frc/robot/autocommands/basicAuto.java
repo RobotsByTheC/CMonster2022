@@ -17,6 +17,6 @@ public class basicAuto extends SequentialCommandGroup {
     
 
     //more commands will be added to sequence
-      addCommands(new TimedMove(2));
+      addCommands(new TimedMove(3));
   }
 }

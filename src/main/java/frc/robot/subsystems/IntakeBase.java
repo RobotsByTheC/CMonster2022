@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer; 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsBase;
+import edu.wpi.first.wpilibj.*;
 
 
 public class IntakeBase extends SubsystemBase {
@@ -26,8 +28,13 @@ public class IntakeBase extends SubsystemBase {
   }
 
   public void intakeStart(){
-    IntakeMotor.set(0.5);
+    IntakeMotor.set(1);
   }
+
+  public void intakeReverse(){
+    IntakeMotor.set(-1);
+  }
+
   public void intakeStop(){
     IntakeMotor.set(0);
   }
@@ -43,6 +50,8 @@ public class IntakeBase extends SubsystemBase {
     }
   }
 
+  
+  //Auto code for intake
   public void intakeToggleAuto(){
     if (intakeToggle)
     {
@@ -55,6 +64,8 @@ public class IntakeBase extends SubsystemBase {
     intakeToggle = !intakeToggle;
     }
   }
+
+
   public void intakeStartAuto()
   {
     IntakeMotor.set(1);
